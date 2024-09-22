@@ -31,18 +31,16 @@ app.use("/api/users", userRoutes);
 app.use("/api/posts", postRoutes); // Add routes for post management
 
 if (process.env.NODE_ENV === "production") {
-  // Serve static files from the dist directory
-  app.use(express.static(path.join(__dirname, "..", "frontend", "dist")));
-
-  // Serve index.html for all other routes
+  app.use(express.static(path.join(__dirname, "frontend", "dist")));
   app.get("*", (req, res) => {
-    res.sendFile(path.resolve(__dirname, "..", "frontend", "dist", "index.html"));
+    res.sendFile(path.resolve(__dirname, "frontend", "dist", "index.html"));
   });
 } else {
   app.get("/", (req, res) => {
     res.send("Server is ready");
   });
 }
+
 
 // Error handling middlewares
 app.use(notFound);
